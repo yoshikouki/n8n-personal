@@ -1,0 +1,27 @@
+# fly.toml app configuration file generated for n8n-yoshikouki on 2025-01-30T06:43:54+09:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'n8n-yoshikouki'
+primary_region = 'nrt'
+
+[build]
+  image = "docker.n8n.io/n8nio/n8n"
+
+[http_service]
+  internal_port = 5678
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[mounts]
+  source = "n8n_data"
+  destination = "/home/node/.n8n"
